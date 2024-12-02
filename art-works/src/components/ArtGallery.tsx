@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "animate.css"; // For animations
 
 interface Artwork {
   objectID: number;
@@ -21,14 +22,12 @@ const ArtGallery: React.FC = () => {
         setLoading(true);
         setError(null);
 
-        // Fetching a list of artwork IDs
         const idsResponse = await axios.get(
           "https://collectionapi.metmuseum.org/public/collection/v1/objects"
         );
 
-        const artworkIds = idsResponse.data.objectIDs.slice(0, 10); // Fetching only the first 10 artworks
+        const artworkIds = idsResponse.data.objectIDs.slice(0, 10);
 
-        // Fetching details for each artwork ID
         const artworkPromises = artworkIds.map((id: number) =>
           axios.get(
             `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`
@@ -37,7 +36,6 @@ const ArtGallery: React.FC = () => {
 
         const artworksData = await Promise.all(artworkPromises);
 
-        // Filtering artworks with images
         const fetchedArtworks: Artwork[] = artworksData
           .map((response) => response.data)
           .filter((artwork) => artwork.primaryImage);
@@ -57,35 +55,29 @@ const ArtGallery: React.FC = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "20px",
-        justifyContent: "center",
-      }}
-    >
+    <div className="row g-4">
       {artworks.map((artwork) => (
-        <div
-          key={artwork.objectID}
-          style={{
-            border: "1px solid #ddd",
-            borderRadius: "8px",
-            padding: "10px",
-            maxWidth: "300px",
-            textAlign: "center",
-          }}
-        >
-          <Link to={`/artwork/${artwork.objectID}`}>
-            <img
-              src={artwork.primaryImage}
-              alt={artwork.title}
-              style={{ maxWidth: "100%", borderRadius: "8px" }}
-            />
-            <h3>{artwork.title}</h3>
+        <div className="col-md-4" key={artwork.objectID}>
+          <Link
+            to={`/artwork/${artwork.objectID}`}
+            className="text-decoration-none"
+          >
+            <div className="card h-100 animate__animated animate__fadeIn">
+              <img
+                src={artwork.primaryImage}
+                alt={artwork.title}
+                className="card-img-top"
+                style={{ height: "300px", objectFit: "cover" }}
+              />
+              <div className="card-body">
+                <h5 className="card-title">{artwork.title}</h5>
+                <p className="card-text">
+                  {artwork.artistDisplayName || "Unknown Artist"}
+                </p>
+                <p className="card-text text-muted">{artwork.objectDate}</p>
+              </div>
+            </div>
           </Link>
-          <p>{artwork.artistDisplayName || "Unknown Artist"}</p>
-          <p>{artwork.objectDate}</p>
         </div>
       ))}
     </div>
