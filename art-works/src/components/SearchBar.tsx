@@ -36,7 +36,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ setArtworks, setError }) => {
 
       // Fetch details for the objectIDs returned by the search
       const fetchedArtworks: any[] = [];
-      const objectIDs = response.data.objectIDs.slice(0, 50); // Limit to 50 results
+      const objectIDs = response.data.objectIDs.slice(0, 50); // Limit to 50 results, this can be changed later when optiomizing.
       for (const id of objectIDs) {
         const artworkResponse = await axios.get(
           `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`
@@ -45,7 +45,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ setArtworks, setError }) => {
       }
 
       setArtworks(fetchedArtworks);
-      navigate("/search-results"); // Navigate to a search results page
+      navigate("/search-results");
     } catch (err) {
       setError("Failed to fetch search results. Please try again.");
     } finally {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "animate.css"; // For animations
+import "animate.css";
 
 interface Artwork {
   objectID: number;

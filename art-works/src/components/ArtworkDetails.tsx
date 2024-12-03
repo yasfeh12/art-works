@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 interface Artwork {
+  objectID?: number;
   primaryImage: string;
   title: string;
   artistDisplayName: string;
@@ -38,6 +39,23 @@ const ArtworkDetails: React.FC = () => {
     fetchArtwork();
   }, [id]);
 
+  const handleAddToFavorites = () => {
+    if (artwork) {
+      const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+      const isAlreadyFavorited = favorites.some(
+        (fav: Artwork) => fav.objectID === artwork.objectID
+      );
+
+      if (!isAlreadyFavorited) {
+        favorites.push(artwork);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        alert("Artwork added to favorites!");
+      } else {
+        alert("Artwork is already in favorites.");
+      }
+    }
+  };
+
   if (loading) return <div>Loading artwork details...</div>;
   if (error) return <div>{error}</div>;
 
@@ -61,6 +79,9 @@ const ArtworkDetails: React.FC = () => {
       <p>
         <strong>Dimensions:</strong> {artwork.dimensions}
       </p>
+      <button className="btn btn-primary mt-3" onClick={handleAddToFavorites}>
+        Add to Favorites
+      </button>
     </div>
   ) : (
     <div>Artwork not found.</div>

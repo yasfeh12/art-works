@@ -1,52 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar: React.FC = () => {
   return (
-    <nav style={styles.nav}>
-      <ul style={styles.navList}>
-        <li style={styles.navItem}>
-          <Link to="/" style={styles.navLink}>
+    <nav className="navbar-container">
+      <ul className="navbar-list">
+        <li className="navbar-item">
+          <Link to="/" className="navbar-link">
             Home
           </Link>
         </li>
-        <li style={styles.navItem}>
-          <Link to="/exhibition" style={styles.navLink}>
+        <li className="navbar-item">
+          <Link to="/exhibition" className="navbar-link">
             Exhibition
           </Link>
         </li>
-        <li style={styles.navItem}>
-          <Link to="/explore" style={styles.navLink}>
+        <li className="navbar-item">
+          <Link to="/explore" className="navbar-link">
             Explore
-          </Link>{" "}
-          {/* Add Explore link */}
+          </Link>
+        </li>
+        <li className="navbar-item">
+          <Link to="/favourites" className="navbar-link">
+            Favourites
+          </Link>
         </li>
       </ul>
     </nav>
   );
-};
-
-const styles = {
-  nav: {
-    backgroundColor: "#333",
-    padding: "10px 20px",
-  },
-  navList: {
-    listStyle: "none",
-    display: "flex",
-    justifyContent: "space-around",
-    margin: 0,
-    padding: 0,
-  },
-  navItem: {
-    margin: 0,
-  },
-  navLink: {
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "18px",
-    fontWeight: "bold",
-  },
 };
 
 export default Navbar;

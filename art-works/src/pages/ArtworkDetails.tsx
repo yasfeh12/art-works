@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { CSSTransition } from "react-transition-group"; // For animations
+import { CSSTransition } from "react-transition-group";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./ArtworkDetails.css"; // Custom styles and animations
+import "./ArtworkDetails.css";
 
 interface Artwork {
+  objectID?: number;
   primaryImage: string;
   title: string;
   artistDisplayName: string;
@@ -21,7 +22,7 @@ const ArtworkDetails: React.FC = () => {
   const [artwork, setArtwork] = useState<Artwork | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [showContent, setShowContent] = useState<boolean>(false); // For animations
+  const [showContent, setShowContent] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchArtwork = async () => {
@@ -34,7 +35,7 @@ const ArtworkDetails: React.FC = () => {
         );
 
         setArtwork(response.data);
-        setShowContent(true); // Trigger animation
+        setShowContent(true);
       } catch (err) {
         setError("Failed to load artwork details.");
       } finally {
@@ -44,6 +45,23 @@ const ArtworkDetails: React.FC = () => {
 
     fetchArtwork();
   }, [id]);
+
+  const handleAddToFavorites = () => {
+    if (artwork) {
+      const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+      const isAlreadyFavorited = favorites.some(
+        (fav: Artwork) => fav.objectID === artwork.objectID
+      );
+
+      if (!isAlreadyFavorited) {
+        favorites.push(artwork);
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+        alert("Artwork added to favorites!");
+      } else {
+        alert("Artwork is already in favorites.");
+      }
+    }
+  };
 
   if (loading)
     return (
@@ -73,7 +91,6 @@ const ArtworkDetails: React.FC = () => {
     >
       <div className="container mt-5">
         <div className="row">
-          {/* Adjusted column sizes */}
           <div className="col-md-9">
             <img
               src={
@@ -110,16 +127,20 @@ const ArtworkDetails: React.FC = () => {
                 <strong>Credit Line:</strong>{" "}
                 {artwork.creditLine || "No credit information available"}
               </p>
+              <button
+                className="btn btn-warning w-100 mb-2"
+                onClick={handleAddToFavorites}
+              >
+                Add to Favorites
+              </button>
+              <button
+                className="btn btn-primary w-100"
+                onClick={() => window.history.back()}
+              >
+                Go Back
+              </button>
             </div>
           </div>
-        </div>
-        <div className="mt-4 text-center">
-          <button
-            className="btn btn-primary"
-            onClick={() => window.history.back()}
-          >
-            Go Back
-          </button>
         </div>
       </div>
     </CSSTransition>

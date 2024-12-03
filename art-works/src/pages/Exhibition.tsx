@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 interface Artwork {
-  objectID?: number; // Optional because Smithsonian artworks don't have objectID
+  objectID?: number;
   primaryImage: string;
   title: string;
   artistDisplayName: string;
@@ -140,7 +140,7 @@ const Exhibition: React.FC = () => {
             key={artwork.objectID || index}
           >
             <Link
-              to={`/artwork/${artwork.objectID}`} // Make the entire card clickable
+              to={`/artwork/${artwork.objectID}`}
               className="text-decoration-none"
             >
               <div className="card h-100">

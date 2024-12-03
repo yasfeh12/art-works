@@ -1,0 +1,13 @@
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.btn-danger {
+  font-size: 0.9rem;
+}
