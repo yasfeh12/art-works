@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
+import Carousel from "../components/Carousel";
 
 const FALLBACK_IMAGE = "https://via.placeholder.com/400x300?text=No+Image";
 
@@ -84,7 +85,6 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      {/* Hero Section */}
       <div className="hero-section">
         <h1 className="hero-title">Welcome to the Art Explorer</h1>
         <p className="hero-subtitle">
@@ -107,6 +107,7 @@ const Home: React.FC = () => {
 
       <div className="artworks-section">
         <h2 className="section-title">Featured Artworks</h2>
+        <Carousel />
         <div className="artworks-grid">
           {artworks.map((artwork) => (
             <div className="artwork-card" key={artwork.objectID}>
