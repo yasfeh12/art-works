@@ -1,0 +1,106 @@
+.container {
+  padding: 20px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 250px;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+  padding: 15px;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.card-text.text-muted {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+input[type="text"],
+.form-select {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+input[type="text"]:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.btn {
+  border-radius: 5px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Page buttons */
+.d-flex.justify-content-center button {
+  min-width: 100px;
+}
+
+/* phone optimization, test and tweek */
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 200px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-text {
+    font-size: 0.8rem;
+  }
+
+  .card-text.text-muted {
+    font-size: 0.7rem;
+  }
+}
